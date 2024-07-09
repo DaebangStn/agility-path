@@ -17,7 +17,7 @@ class Obstacle:
         self.rotation = rotation
         self.margin = margin
         self.dim = self._dimensions()
-        self.entrance1, self.entrance2 = self._entrance_position()
+        self.gate1, self.gate2 = self._compute_gate_local_position()
 
     def _dimensions(self) -> Tuple[float, float]:
         # Center is at the origin
@@ -34,9 +34,15 @@ class Obstacle:
         elif self.type == ObstType.Weave:
             return 2, 0.2
 
-    def _entrance_position(self) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+    def _compute_gate_local_position(self) -> Tuple[Tuple[float, float], Tuple[float, float]]:
         pos_x = 0
         pos_y = self.dim[1] / 2 + 0.2
         x = pos_x * cos(self.rotation) - pos_y * sin(self.rotation)
         y = pos_x * sin(self.rotation) + pos_y * cos(self.rotation)
         return (x, y), (-x, -y)
+
+    def gate_global_position(self, idx: int) -> Tuple[float, float]:
+        if idx == 1:
+            return add_coord(self.gate1, self.position)
+        elif idx == 2:
+            return add_coord(self.gate2, self.position)

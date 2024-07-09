@@ -3,14 +3,15 @@ Env 2D
 @author: huiming zhou
 """
 from agility_path.env.obstacle import ObstType, Obstacle
+from agility_path.util import *
 
 
 class Field:
     def __init__(self):
         self.x_range = 51  # size of background
         self.y_range = 31
-        self.motions = [(-1, 0), (-1, 1), (0, 1), (1, 1),
-                        (1, 0), (1, -1), (0, -1), (-1, -1)]
+        self.motions = [(-GRID_SIZE, 0), (-GRID_SIZE, GRID_SIZE), (0, GRID_SIZE), (GRID_SIZE, GRID_SIZE),
+                        (GRID_SIZE, 0), (GRID_SIZE, -GRID_SIZE), (0, -GRID_SIZE), (-GRID_SIZE, -GRID_SIZE)]
 
         # There are two drawables, obstacle and boundaries
         self.boundaries = self._build_outline()

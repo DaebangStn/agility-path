@@ -7,14 +7,15 @@ import math
 import heapq
 from agility_path.env import plotting
 from agility_path.env.field import Field
+from agility_path.util import *
 
 
 class AStar:
     """AStar set the cost + heuristics as the priority
     """
-    def __init__(self, s_start, s_goal, heuristic_type):
-        self.s_start = s_start
-        self.s_goal = s_goal
+    def __init__(self, s_start: Tuple[float, float], s_goal: Tuple[float, float], heuristic_type="euclidean"):
+        self.s_start = round_gs(s_start)
+        self.s_goal = round_gs(s_goal)
         self.heuristic_type = heuristic_type
 
         self.field = Field()  # class Env
@@ -206,7 +207,7 @@ def main():
     s_start = (5, 5)
     s_goal = (45, 25)
 
-    astar = AStar(s_start, s_goal, "euclidean")
+    astar = AStar(s_start, s_goal)
     plot = plotting.Plotting(s_start, s_goal)
 
     path, visited = astar.searching()
