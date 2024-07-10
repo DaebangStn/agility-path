@@ -1,7 +1,9 @@
-from agility_path.Astar import AStar
+import matplotlib.pyplot as plt
+
 from agility_path.env.field import Field
 from agility_path.env.plotting import Plotting
 from agility_path.course import Course
+from agility_path.util import *
 
 
 if __name__ == "__main__":
@@ -14,4 +16,10 @@ if __name__ == "__main__":
 
     f = Field()
     c = Course(f)
-    plot.animation(c.compute_path(s_start, s_goal), [], "A*")
+    plt.ion()
+    plt.show()
+    plot.plot_grid('test')
+    update_plot()
+    c.compute_and_plot_path(s_start, s_goal)
+    # plot.plot_paths(path)
+    plt.show(block=True)

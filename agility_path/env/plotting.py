@@ -34,8 +34,8 @@ class Plotting:
         plt.plot(obs_x, obs_y, "sk")
 
     def _plot_obstacles(self):
-        for obs in self.env.obstacles:
-            center = (obs.position[0] - obs.dim[0] / 2, obs.position[1] - obs.dim[1] / 2)
+        for i, obs in enumerate(self.env.obstacles):
+            center = sub_coord(obs.position, div_coord(obs.dim, 2))
             bound = patches.FancyBboxPatch(center, obs.dim[0], obs.dim[1], boxstyle="round,pad=0.1", ec="r",
                                            fc="gray", linewidth=0.5, linestyle='--')
             t = (transforms.Affine2D().rotate_deg_around(obs.position[0], obs.position[1], obs.rotation) +
@@ -44,6 +44,7 @@ class Plotting:
             plt.gca().add_patch(bound)
             plt.plot(obs.gate1[0] + obs.position[0], obs.gate1[1] + obs.position[1], "ro", markersize=3)
             plt.plot(obs.gate2[0] + obs.position[0], obs.gate2[1] + obs.position[1], "go", markersize=3)
+            plt.text(obs.position[0], obs.position[1], str(i), fontsize=8, color='black', ha='center', va='center')
 
     def plot_visited(self, visited, cl='gray'):
         if self.xI in visited:
@@ -82,7 +83,7 @@ class Plotting:
         plt.plot(self.xI[0], self.xI[1], "bs")
         plt.plot(self.xG[0], self.xG[1], "gs")
 
-        plt.pause(0.01)
+        # plt.pause(0.01)
 
     @staticmethod
     def color_list():

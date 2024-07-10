@@ -21,7 +21,6 @@ class AStar:
         self.field = Field()  # class Env
 
         self.u_set = self.field.motions  # feasible input set
-        self.obs = self.field.boundaries  # position of obstacles
 
         self.OPEN = []  # priority queue / OPEN set
         self.CLOSED = []  # CLOSED set / VISITED order
@@ -143,22 +142,7 @@ class AStar:
         :param s_end: end node
         :return: True: is collision / False: not collision
         """
-
-        if s_start in self.obs or s_end in self.obs:
-            return True
-
-        if s_start[0] != s_end[0] and s_start[1] != s_end[1]:
-            if s_end[0] - s_start[0] == s_start[1] - s_end[1]:
-                s1 = (min(s_start[0], s_end[0]), min(s_start[1], s_end[1]))
-                s2 = (max(s_start[0], s_end[0]), max(s_start[1], s_end[1]))
-            else:
-                s1 = (min(s_start[0], s_end[0]), max(s_start[1], s_end[1]))
-                s2 = (max(s_start[0], s_end[0]), min(s_start[1], s_end[1]))
-
-            if s1 in self.obs or s2 in self.obs:
-                return True
-
-        return False
+        return self.field.check_collision(s_start, s_end)
 
     def f_value(self, s):
         """

@@ -8,6 +8,8 @@ setup(
     author_email="geonholeem@imo.snu.ac.kr",
     install_requires=[
         "matplotlib",
+        "tqdm",
+        "scipy",
     ],
     packages=find_packages(include=["agility_path*"], exclude=[]),
     classifiers=[

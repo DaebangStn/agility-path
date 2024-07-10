@@ -17,28 +17,31 @@ class Course:
             seq.append((i, ent_idx))
         return seq
 
-    def compute_path(self, s_start, s_end) -> List[List[Tuple[float, float]]]:
-        path = []
+    def compute_and_plot_path(self, s_start, s_end):
+        tq = tqdm(total=len(self.coord_sequence), desc="Path Planning")
         self.coord_sequence[0][0] = s_start
         self.coord_sequence[-1][1] = s_end
         for i, seq in enumerate(self.coord_sequence):
             planner = AStar(seq[0], seq[1])
             p, _ = planner.searching()
-            path.append(p)
-        return path
+            path_x = [p[i][0] for i in range(len(p))]
+            path_y = [p[i][1] for i in range(len(p))]
+            plt.plot(path_x, path_y, linewidth='1.5', color='r')
+            tq.update(1)
+            update_plot()
 
     def _build_coord_sequence(self) -> List[List[Tuple[float, float]]]:
         seq = []
         obstacles = self.field.obstacles
 
-        for idx, ent_idx in self.idx_sequence:
-            if idx == 0:
-                ent = obstacles[0].gate_global_position(ent_idx)
+        for i in range(len(self.idx_sequence)):
+            if i == 0:
+                ent = obstacles[self.idx_sequence[i][0]].gate_global_position(self.idx_sequence[i][1])
                 seq.append([ent, ent])
             else:
-                ent1 = obstacles[idx-1].gate_global_position(3 - ent_idx)
-                ent2 = obstacles[idx].gate_global_position(ent_idx)
+                ent1 = obstacles[self.idx_sequence[i-1][0]].gate_global_position(3 - self.idx_sequence[i-1][1])
+                ent2 = obstacles[self.idx_sequence[i][0]].gate_global_position(self.idx_sequence[i][1])
                 seq.append([ent1, ent2])
-        ent = obstacles[-1].gate_global_position(3 - self.idx_sequence[-1][1])
+        ent = obstacles[self.idx_sequence[-1][0]].gate_global_position(3 - self.idx_sequence[-1][1])
         seq.append([ent, ent])
         return seq
