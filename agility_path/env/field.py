@@ -15,7 +15,10 @@ class Field:
 
         # There are two drawables, obstacle and boundaries
         self.boundaries = self._build_boundary()
-        self.obstacles = self._add_obstacles()  # indices of list is the order of obstacles
+        self.obstacles = []
+
+    def add_obstacle(self, _type: ObstType, pos: Tuple[float, float]):
+        self.obstacles.append(Obstacle(_type, pos))
 
     def _build_boundary(self):
         x = self.x_range
@@ -31,14 +34,6 @@ class Field:
             obs.add((0, i))
         for i in range(y):
             obs.add((x - 1, i))
-        return obs
-
-    def _add_obstacles(self):
-        obs = []
-        obs.append(Obstacle(ObstType.Tunnel, (15, 15)))
-        obs.append(Obstacle(ObstType.Jump, (25, 15)))
-        obs.append(Obstacle(ObstType.DogWalk, (25, 25)))
-        obs.append(Obstacle(ObstType.Aframe, (15, 35)))
         return obs
 
     def check_collision(self, s_start: Tuple[float, float], s_end: Tuple[float, float]) -> bool:

@@ -2,20 +2,17 @@
 Plot tools 2D
 @author: huiming zhou
 """
-import matplotlib.pyplot as plt
-
 from agility_path.env.field import Field
 from agility_path.util import *
 
 
 class Plotting:
-    def __init__(self, xI, xG):
+    def __init__(self, xI, xG, field: Field):
         self.xI, self.xG = xI, xG
-        self.env = Field()
+        self.env = field
 
     def animation(self, path, visited, name):
         self.plot_grid(name)
-        # self.plot_visited(visited)
         self.plot_paths(path)
         plt.show()
 
