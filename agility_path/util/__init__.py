@@ -4,6 +4,10 @@ from abc import ABC, abstractmethod
 from math import sin, cos, sqrt, atan2, radians
 from typing import List, Tuple, Dict, Union, Any
 
+from scipy.interpolate import LSQUnivariateSpline, UnivariateSpline
+from scipy.optimize import minimize
+
+import numpy as np
 from tqdm import tqdm
 import matplotlib
 matplotlib.use('TkAgg')

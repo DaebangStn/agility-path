@@ -27,6 +27,25 @@ class Course:
             path_x = [p[i][0] for i in range(len(p))]
             path_y = [p[i][1] for i in range(len(p))]
             plt.plot(path_x, path_y, linewidth='1.5', color='r')
+
+            # Parameterize the data points
+            t = np.arange(len(path_x))
+
+            # Create the spline with LSQUnivariateSpline
+            smoothing_factor = 0.5  # Adjust this value to get the desired smoothness
+            spline_x = UnivariateSpline(t, path_x, s=smoothing_factor, k=3)
+            spline_y = UnivariateSpline(t, path_y, s=smoothing_factor, k=3)
+
+            # Evaluate the spline
+            t_new = np.linspace(t[0], t[-1], 100)
+            path_x_new = spline_x(t_new)
+            path_y_new = spline_y(t_new)
+
+            # Enforce the start and end points
+            path_x_new[0], path_y_new[0] = path_x[0], path_y[0]
+            path_x_new[-1], path_y_new[-1] = path_x[-1], path_y[-1]
+            plt.plot(path_x_new, path_y_new, 'b-')
+
             tq.update(1)
             update_plot()
 
