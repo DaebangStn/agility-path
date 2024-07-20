@@ -2,6 +2,8 @@
 Plot tools 2D
 @author: huiming zhou
 """
+import matplotlib.pyplot as plt
+
 from agility_path.env.field import Field
 from agility_path.util import *
 
@@ -11,12 +13,9 @@ class Plotting:
         self.xI, self.xG = xI, xG
         self.env = field
 
-    def animation(self, path, visited, name):
-        self.plot_grid(name)
-        self.plot_paths(path)
-        plt.show()
-
     def plot_grid(self, name):
+        plt.xlim(0, 10)
+        plt.ylim(0, self.env.y_range)
         self._plot_boundaries()
         self._plot_obstacles()
 
@@ -42,6 +41,7 @@ class Plotting:
             plt.plot(obs.gate1[0] + obs.position[0], obs.gate1[1] + obs.position[1], "ro", markersize=3)
             plt.plot(obs.gate2[0] + obs.position[0], obs.gate2[1] + obs.position[1], "go", markersize=3)
             plt.text(obs.position[0], obs.position[1], str(i), fontsize=8, color='black', ha='center', va='center')
+            plt.text(-10, i * 10, f'{i}: {obs.type.name}', fontsize=8, color='black', ha='center', va='center',)
 
     def plot_visited(self, visited, cl='gray'):
         if self.xI in visited:

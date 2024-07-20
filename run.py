@@ -11,7 +11,7 @@ if __name__ == "__main__":
     s_start = (5.0, 5.0)
     s_goal = (45.0, 25.0)
 
-    f = Field()
+    f = Field(x_range=50, y_range=50)
     f.add_obstacle(ObstType.Tunnel, (15, 15))
     f.add_obstacle(ObstType.Jump, (25, 15))
     f.add_obstacle(ObstType.DogWalk, (25, 25))

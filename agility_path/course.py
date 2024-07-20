@@ -22,7 +22,7 @@ class Course:
         self.coord_sequence[0][0] = s_start
         self.coord_sequence[-1][1] = s_end
         for i, seq in enumerate(self.coord_sequence):
-            planner = AStar(seq[0], seq[1])
+            planner = AStar(seq[0], seq[1], self.field)
             p, _ = planner.searching()
             path_x = [p[i][0] for i in range(len(p))]
             path_y = [p[i][1] for i in range(len(p))]

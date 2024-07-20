@@ -7,9 +7,9 @@ from agility_path.util import *
 
 
 class Field:
-    def __init__(self):
-        self.x_range = 51  # size of background
-        self.y_range = 51
+    def __init__(self, x_range: int, y_range: int):
+        self.x_range = x_range
+        self.y_range = y_range
         self.motions = [(-GRID_SIZE, 0), (-GRID_SIZE, GRID_SIZE), (0, GRID_SIZE), (GRID_SIZE, GRID_SIZE),
                         (GRID_SIZE, 0), (GRID_SIZE, -GRID_SIZE), (0, -GRID_SIZE), (-GRID_SIZE, -GRID_SIZE)]
 

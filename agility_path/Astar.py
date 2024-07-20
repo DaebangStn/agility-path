@@ -13,13 +13,12 @@ from agility_path.util import *
 class AStar:
     """AStar set the cost + heuristics as the priority
     """
-    def __init__(self, s_start: Tuple[float, float], s_goal: Tuple[float, float], heuristic_type="euclidean"):
+    def __init__(self, s_start: Tuple[float, float], s_goal: Tuple[float, float], field: Field,
+                 heuristic_type="euclidean"):
         self.s_start = round_gs(s_start)
         self.s_goal = round_gs(s_goal)
         self.heuristic_type = heuristic_type
-
-        self.field = Field()  # class Env
-
+        self.field = field
         self.u_set = self.field.motions  # feasible input set
 
         self.OPEN = []  # priority queue / OPEN set
